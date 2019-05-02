@@ -6,6 +6,7 @@ Conda prompt称为终端
 Conda remove pandas
 Conda update pandas       conda update –all
 有时候用conda安装不上包，我们可以使用pip来安装。比如我在安装股票数据pandas_datareader包时，就使用pip来安装才成功。Pip install pandas_datareader
+查看包： conda list
 
 创建环境名称为py3，并安装最新版本的Python3在终端中输入：
 conda create -n py3 python=3

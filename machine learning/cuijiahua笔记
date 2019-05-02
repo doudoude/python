@@ -1,0 +1,18 @@
+
+学习文章https://cuijiahua.com/blog/2017/11/ml_1_knn.html
+机器学习实战教程（一）：K-近邻算法（史诗级干货长文）
+
+
+
+KNN分类算法：
+def classify0(inx, dataset, labels, k):
+	# 计算距离
+	dist = np.sum((inx - dataset)**2, axis=1)**0.5
+	# k个最近的标签，dis.argsort ()把dis 从小到大排列，[0:k]取从小到大的前k个， index为这前k个的索引，label[index]为这前k个的标签，为k维标签列表
+	k_labels = [labels[index] for index in dist.argsort()[0 : k]]
+	# 出现次数最多的标签即为最终类别。 collections模块的counter类，用于计数
+Collections.counter()返回“标签：次数”  Counter({'b': 2, 'a': 3})
+most_common（n）输出前n 个按次数降序排列的标签和次数  [('a', 3)]
+[0][0]为第0行第0个，即  ’a’
+	label = collections.Counter(k_labels).most_common(1)[0][0]
+	return label

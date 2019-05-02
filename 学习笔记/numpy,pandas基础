@@ -1,0 +1,135 @@
+
+1.	None 是NoneType
+NaN是numpy专门为数值设置的类型，用isnan判断
+np.isnan(np.nan)
+2.	Series是pandas的数据类型，有索引和值，若不给索引，则自动以数字为索引，若以字典形式给索引，则按字母顺序排列
+sports = {'Archery': 'Bhutan',
+          'Golf': 'Scotland',
+          'Sumo': 'Japan',
+          'Taekwondo': 'South Korea'}
+s = pd.Series(sports)      只取一部分： s=pd.Series(sports,index=[‘Sumo’,’Golf’])
+s.index 查看索引
+ 
+s.iloc[1]          用索引数字取值
+s.loc[‘Golf’]       用索引取值
+
+整体操作(comprehension)比循环快
+ 求和：%%timeit -n 100
+summary = 0
+for item in s:
+summary+=item
+更快：%%timeit -n 100
+summary = np.sum(s)
+
+整体加2
+循环：%%timeit -n 10
+s = pd.Series(np.random.randint(0,1000,1000))
+for label, value in s.iteritems():
+s.loc[label]= value+2
+更快：%%timeit -n 10
+s = pd.Series(np.random.randint(0,1000,1000))
+s+=2
+
+s = pd.Series([1, 2, 3])
+s.loc['Animal'] = 'Bears'                  .loc可以新增一列
+
+append 可以不改变原来序列，新建一个新增序列，但注意原有的和新增的都得是Series类型（若是列表list则append会改变原有列表）
+original_sports = pd.Series({'Archery': 'Bhutan',
+                             'Golf': 'Scotland',
+                             'Sumo': 'Japan',
+                             'Taekwondo': 'South Korea'})
+cricket_loving_countries = pd.Series(['Australia',
+                                      'Barbados',
+                                      'Pakistan',
+                                      'England'], 
+                                   index=['Cricket',
+                                          'Cricket',
+                                          'Cricket',
+                                          'Cricket'])
+all_countries = original_sports.append(cricket_loving_countries)
+
+3.	DataFrame
+生成：由Series生成
+import pandas as pd
+purchase_1 = pd.Series({'Name': 'Chris',
+                        'Item Purchased': 'Dog Food',
+                        'Cost': 22.50})
+purchase_2 = pd.Series({'Name': 'Kevyn',
+                        'Item Purchased': 'Kitty Litter',
+                        'Cost': 2.50})
+purchase_3 = pd.Series({'Name': 'Vinod',
+                        'Item Purchased': 'Bird Seed',
+                        'Cost': 5.00})
+df = pd.DataFrame([purchase_1, purchase_2, purchase_3], index=['Store 1', 'Store 1', 'Store 2'])
+df.head()
+
+操作：
+选取：
+df.loc['Store 1']    df.T.loc['Cost']    df['Cost']        df.loc[:,['Name', 'Cost']]
+df.loc['Store 1', 'Cost']          
+删除
+df.drop('Store 1')     不会改变原来的fd         drop只能对行操作
+复制：copy_df = df.copy()
+Del copy_df[‘Cost’]         del直接删除原来的，可对行/列进行操作
+转置：df.T.loc['Cost']            .T
+添加列：df['Location'] = None
+添加行：person3=pd.DataFrame({'gender':'male',
+                   'name':'qiaoy',
+                   'school':'jinhua'}, index=['person 3'])
+mydf.append(person3)
+costs = df['Cost']
+costs+=2         原数据加2
+
+4.	查看数据 !cat olympics.csv
+读取csv文件：df = pd.read_csv('olympics.csv', index_col = 0, skiprows=1)
+		Index_col=0表示把第0列设为索引，skiprows=1表示跳过一行不读取
+查看列名： df.columns
+更改列名; 
+df.rename(columns={'a':'A'})
+
+for col in df.columns:
+    if col[:2]=='01':
+        df.rename(columns={col:'Gold' + col[4:]}, inplace=True)
+对列名集合中的每一个col，如果前两个字符为01如‘01！summer’，则重命名，该列名为’Goldsummer’,即第四个往后不变
+大小写操作：
+for col in dfcar.columns:
+    dfcar.rename(columns={col:col[0]+str.lower(col[1:])},inplace=True)
+每个列名除第一个字母以外改成小写
+5.	查询dataframe
+df['Gold'] > 0 返回布尔值T/F
+only_gold = df.where(df['Gold'] > 0) 返回满足条件的行，不满足条件的变成NaN
+only_gold = only_gold.dropna()     		去除NaN
+以上两步等价于 only_gold = df[df['Gold'] > 0] 返回满足条件的行，不含NaN
+len(df[(df['Gold'] > 0) | (df['Gold.1'] > 0)])   包含运算符的条件查询，条件要加括号
+df[(df['Gold.1'] > 0) & (df['Gold'] == 0)]
+取某列唯一值：df['SUMLEV'].unique()
+
+更改索引：
+df['country'] = df.index 把原来的索引命名成新的一列，加在最后
+df = df.set_index('Gold')    把gold设为索引
+df = df.reset_index()    去除索引，索引自动变成数字
+df = df.set_index(['STNAME', 'CTYNAME']) 设置双重索引
+df.loc[ [('Michigan', 'Washtenaw County'),
+         ('Michigan', 'Wayne County')] ]       按双重索引选取
+
+
+6.	Missing value
+7.	按时间顺序排序
+df = df.set_index('time')
+df = df.sort_index()	
+设置时间和用户名双重索引
+df = df.reset_index()
+df = df.set_index(['time', 'user'])
+
+df = df.fillna(method='ffill')    填充空值
+df.fillna?       查询函数用法
+ 
+http://cs231n.github.io/python-numpy-tutorial/ 	
+d = {'person': 2, 'cat': 4, 'spider': 8}
+for animal, legs in d.items():
+    print('A %s has %d legs' % (animal, legs))
+# Prints "A person has 2 legs", "A cat has 4 legs", "A spider has 8 legs"
+%s   %d表示数据格式， %s为字符串，%d为整数
+
+y = np.empty_like(x)   # Create an empty matrix with the same shape as x
+

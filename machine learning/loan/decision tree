@@ -1,0 +1,15 @@
+#decision tree
+from sklearn.datasets import load_iris
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.model_selection import train_test_split
+
+DT = DecisionTreeClassifier()
+DT.fit(x_train_r, y_train_r)
+
+print_score(DT, x_train_r, y_train_r, x_test1, y_test1, train=False)
+
+print('Accuracy of Decision Tree classifier on training set: {:.2f}'
+     .format(DT.score(x_train_r, y_train_r)))
+print('Accuracy of Decision Tree classifier on test set: {:.2f}'
+     .format(DT.score(x_test1, y_test1)))
+

@@ -1,0 +1,41 @@
+Anaconda 3(32 bits)使用笔记
+Anaconda是包管理器和环境管理器，Jupyter notebook 可以将数据分析的代码、图像和文档全部组合到一个web文档中。
+
+Conda prompt称为终端
+安装包：终端输入conda install pandas
+Conda remove pandas
+Conda update pandas       conda update –all
+有时候用conda安装不上包，我们可以使用pip来安装。比如我在安装股票数据pandas_datareader包时，就使用pip来安装才成功。Pip install pandas_datareader
+
+创建环境名称为py3，并安装最新版本的Python3在终端中输入：
+conda create -n py3 python=3
+进入环境：activate py3
+离开环境：deactivate
+用 conda env list 就可以列出你创建的所有环境。
+
+Jupyter
+快捷键（键盘上同时按住ctrl+enter键）来执行代码
+代码自动补全：已定义变量“papa”在后面代码中用到这个变量时，我只要输入第一个变量的第一个字母p，然后按下Tab键，边会自动查找到代码中以p开头的变量名称，这可以大幅度提供你写代码的效率。
+当Cell前出现*，表示当前cell程序正在运行，或者它前面的cell正在运行。
+重新运行所有单元格：kernel   restart and clear output
+关闭jupyter notebook: 保存homefiles勾选shutdown
+点击File->Download as，你可以选择多种格式下载你的notebook。一般我都会根据下面的用途来选择不同的下载格式：1）如果我想和客户分享我的数据分析成果，我会选择将notebook下载为HTML文件。2）如果我希望将自己的数据分析成果和代码嵌入到项目中，比如为药店管理系统做个数据分析子模块，我就会选择Python（.py）模块，这可以将我的代码融入项目中，成为子模块，方便和其他开发人员共同完成任务。3）如果要在博客或文档中使用 notebook，我就选择Markdown格式。
+
+通过在终端中按两次 Ctrl + C，可以关闭整个服务器。再次提醒，这会立即关闭所有运行中的 notebook，因此，请确保你保存了工作！
+关闭notebook服务器后，下次启动再打开notebook，当你继续在该notebook中写代码时，发现之前的变量无法访问了。需要你在该notebook的Kernerl选项卡中选择“Run All”重新编译下之前的代码。
+
+Spyder
+字体：tool  preference general appearance font
+%reset command or the Remove all variables menu option, which will clear all object
+All customization saved on disk can be reset by calling Spyder from the command line with the switch --reset, i.e. running spyder --reset.
+
+The command to get the figures to appear inline in the IPython Console is:
+In [ ]: %matplotlib inline
+The command to get figures appear in their own window (rendered by the Qt backend) is:
+In [ ]: %matplotlib qt
+The Spyder preferences can be used to customize the default behavior, underPreferences ‣ IPython Console ‣ Graphics ‣ Graphics Backend.
+The command to get the figures to appear inline in the IPython Console is:
+
+
+
+

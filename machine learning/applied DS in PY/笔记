@@ -1,0 +1,11 @@
+knn 即可用于clasification,也用于regression
+  knn(3)classification：取querry x最近的三个训练集x，找到对应的三个y,出现次数最多的y即为querry x的预测y值
+  knn(3)regression:取querry x最近的三个训练集x，找到对应的三个y，取y的平均，即为querry x的预测y值
+  选取合适的k，k过大：underfitting,k过小，overfitting，选择使测试集R方最大的k
+linear regression假设y与x存在线性关系，在训练集上的R方不如KNN，但是测试集上优于knn。knn容易受极端训练值影响，而linear regression比较稳定
+  linear regression的参数（斜率和截距）估计方法有四种：least square estimation,最小化实际值和预测值差的平和
+  ridge在lse基础上加了一个惩罚项，惩罚过多/过大的feature系数w的平方(regularization).alpha越大，regularization越强,模型越简单，feature weights close to 0
+  lasso类似与ridge，但是惩罚项为w的绝对值，会直接令不显著的系数为0
+  polynomial regression:把x1,x2重新组合成五个特征：x1,x2,x1x2,x1方，x2方，对五个做回归。好处：把直线回归转换成曲线回归，capture non linear features
+  但polynomial 会增大复杂度，因此需要与regularization模型(ridge)配合使用,即regularized polynomialregression
+  logistic regression:对于逻辑回归和向量机，大的惩罚系数alpha意味着less regularization

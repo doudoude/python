@@ -9,3 +9,9 @@ linear regression假设y与x存在线性关系，在训练集上的R方不如KNN
   polynomial regression:把x1,x2重新组合成五个特征：x1,x2,x1x2,x1方，x2方，对五个做回归。好处：把直线回归转换成曲线回归，capture non linear features
   但polynomial 会增大复杂度，因此需要与regularization模型(ridge)配合使用,即regularized polynomialregression
   logistic regression:对于逻辑回归和向量机，大的惩罚系数alpha意味着less regularization
+ssupport vector model:用于sparse data,用一条线把两类分类，或多条线把 是/否 分开。maximizing the margin between classes,margin指类之间的宽度。
+  参数c为regularization，c越大，regularization越小，对训练集数据更敏感，模型拟合更好，复杂度更高,但smaller margin
+  c越小，模型更简单，错误率更高，larger margin
+  kernel funvtion把二维数据转化为三维，再进行划分。划分函数称为kernel function,如radial basis function,这个函数的gamma参数表示单点的影响范围
+  gamma小，相似范围大，模型平滑，更多的点被分到一起。 gamma大，模型更准确，但可能过拟合
+ cross validation把数据分成k份，选一份为测试集。注意划分的target要均匀，不能一份都是苹果，下一份都是梨

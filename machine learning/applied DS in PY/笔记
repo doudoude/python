@@ -22,3 +22,8 @@ decision tree原理：依据特征重要程度依次划分训练集数据
   splitting it further. This setting also reduces tree complexity. 
   Finally, max leaf nodes limits the total of nodes that are leaves of the tree. In effect, setting this parameter will indirectly
   influence the other two parameters and vice versa. 
+模型评分: recall=TP/(TP+FN)     False Negative影响恶劣，如把非肿瘤(positive)判为肿瘤，倾向于把negative判为positive。 beta大
+  precision=TP/(TP+FP)     谨慎。False Positive影响恶劣，如搜索引擎把不合适的内容(negative)推给客户，倾向于把positive判为negative. beta小
+  ROC curve: X轴为false positive rate,y :true positive rate AUC是ROC下面的面积
+  macro average算出每类的precision再做平均，each instance have equal weight
+  micro average直接算出整个样本的precision.      if macro>micro,说明样本量大的那一类precision较低,examine bigger classes

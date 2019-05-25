@@ -27,3 +27,8 @@ decision tree原理：依据特征重要程度依次划分训练集数据
   ROC curve: X轴为false positive rate,y :true positive rate AUC是ROC下面的面积
   macro average算出每类的precision再做平均，each instance have equal weight
   micro average直接算出整个样本的precision.      if macro>micro,说明样本量大的那一类precision较低,examine bigger classes
+朴素贝叶斯分类器：假设每类独立服从某种分布，已知数据，哪种分布最可能产生这样的数据，就归为哪一类
+随机森林：多个决策树，树之间的区别：1，训练集抽样随机，每棵树从样本中有放回随机抽N个  2，每棵树的选总特征数的随机子集，一般取根号，比如原数据有64个特征，
+  那么每棵树选取8个特征做决策树分类。  之后每棵树的预测概率取均值，就是随机森林的预测
+gradient boost trees:用一些比较小的树，每棵树都修正上一棵树,所有树相加。参数leaning rate越大，下一棵树对上一棵树的修正越强，模型更复杂
+神经网络：把原变量组合成新的一组，再把新的组合成新的，逐渐加深，最后一组预测y。alpha越大，regulation越强，模型越简单

@@ -137,6 +137,9 @@ Delta                        %差值为100天
 
 today = dt.date.today()
 today - delta # the date 100 days ago
+
+x=pd.to_datetime(train1.hearing_date.values)-pd.to_datetime(train1.ticket_issued_date.values)
+train1['date']=x.total_seconds()/60
 13.	建立类：
 class Person:
     department = 'School of Information' #a class variable

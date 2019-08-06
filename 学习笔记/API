@@ -3,7 +3,7 @@ import pandas as pd
 import json
 from requests.exceptions import HTTPError
 response1 = requests.get('https://www.okex.com/api/futures/v3/instruments/BTC-USD-190809/candles?end=2019-08-05T02:55:00.000Z&granularity=300')
-content_json=json.loads(response.content)
+content_json=json.loads(response1.content)
 OriginalKdata=pd.DataFrame(content_json)
 OriginalKdata.columns=["timestamp","open","high","low","close","volumn","currency_volumn"]
 KData=OriginalKdata.loc[:,["timestamp","volumn"]]

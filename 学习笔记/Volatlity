@@ -1,27 +1,30 @@
 import pandas as pd
 import numpy as np
 import os
+import math
 
 df=pd.read_csv('sample_price.csv')
 instrument=df.instrument.unique()
-price=df.close
 temprice=[]
 tempvolume=[]
-df1=pd.DataFrame(columns=["timestamp","instrument","volatility","volumn"])
+logreturn=[]
+df1=pd.DataFrame(columns=["timestamp","instrument","DailyVol","AnnualVol","volumn"])
 
 for i in range(0,len(instrument)):
-    for j in range(0, len(price)):
+    for j in range(0, df.shape[0]):
         if(df.loc[j,"instrument"]==instrument[i]):
             temprice.append(df.loc[j,"close"])
             tempvolume.append(df.loc[j,"volume"])
-    df1.loc[i]=list([df.timestamp[j],instrument[i],np.std(temprice,ddof=1),np.sum(tempvolume)])
+    logreturn=np.diff(np.log(temprice))
+    vol=np.std(logreturn)
+    print(vol)
+    df1.loc[i]=list([df.timestamp[j],instrument[i],vol*(math.sqrt(1440)),vol*(math.sqrt(1440))*(math.sqrt(365)),np.sum(tempvolume)])
     temprice=[]
     tempvolume=[]
-
-#csvname='RealizedVol_{}.csv'
-#csvname.format(df.timestamp[j][5:10])
+    logreturn=[]
 flag=os.path.isfile('RealizedVol.csv')
 if flag==False:
-    df1.to_csv('RealizedVol.csv')
+    df1.to_csv('RealizedVol.csv',index=False)
 if flag==True:
-    df1.to_csv('RealizedVol.csv',mode='a',header=False)
+    df1.to_csv('RealizedVol.csv',mode='a',header=False,index=False)
+        
